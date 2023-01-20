@@ -1,0 +1,11 @@
+<#assign alpha = ["A","B","C","D","E","F","G","H","I","a","b","c","d","e","f","g","h","i"] />
+<#function randomID>
+    <#local rndString =""/>
+    <#list [1,2,3,4,5,6] as num >
+        <#assign rndLen = utils.numbers.randomIntWithCeiling(18)/>
+        <#local rndString += alpha[rndLen] />
+        </#list>
+    <#assign rndNums = utils.numbers.randomIntWithCeiling(6) />
+    <#local totsRando = rndString = '_' + rndNums/>
+    <#return totsRando />
+</#function>
