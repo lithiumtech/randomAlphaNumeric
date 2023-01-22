@@ -1,11 +1,13 @@
-<#assign alpha = ["A","B","C","D","E","F","G","H","I","a","b","c","d","e","f","g","h","i"] />
-<#function randomID>
-    <#local rndString =""/>
-    <#list [1,2,3,4,5,6] as num >
-        <#assign rndLen = utils.numbers.randomIntWithCeiling(18)/>
-        <#local rndString += alpha[rndLen] />
-        </#list>
-    <#assign rndNums = utils.numbers.randomIntWithCeiling(6) />
-    <#local totsRando = rndString = '_' + rndNums/>
-    <#return totsRando />
+<#function randomID salt>
+    <#assign alphabet = ["A","B","C","D","E","F","G","H","I","a","b","c","d","e","f","g","h","i"] />
+    <#assign datetime = (.now?long/salt)?round />
+    <#assign len = datetime?string?length/>
+    <#assign alphanum =""/>
+    <#list 1..len as digit>
+        <#assign i = digit?index/>
+        <#assign sliced = datetime?string[i]?number/>
+        <#assign alphanum = alphanum +alphabet[sliced] />
+    </#list>
+    <#assign rndId = "${alphanum}_${.now?long?string[6..]}" />
+    <#return rndId/>
 </#function>
